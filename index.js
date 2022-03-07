@@ -17,6 +17,73 @@ data = async (a, b, c, d) => {
         body: JSON.stringify(c)
     }).then(b => b.json()).then(b).catch(d)
 }
+waChat = a =>{
+    b = a.parentElement.querySelector('[data-type="nowa"]').innerHTML
+    window.location.href = 'https://wa.me/' + b
+}
+deleteRow = a =>{
+    data(`delete${document.body.attributes['data-menu'].value}.php`,b =>{
+        a.parentElement.remove()
+    },{a:a.parentElement.attributes['data-id'].value},error)
+}
+editForm = a =>{
+    kembaliForm()
+    b = document
+    c = b.createElement('section')
+    c.id = 'form'
+    d = b.createElement('form')
+    d.name = 'edit'
+    e = b.createElement('div')
+    f = b.createElement('label')
+    f.innerHTML = 'Variabel ' + a.attributes['data-type'].value + ' Lama'
+    g = b.createElement('input')
+    g.value = a.innerHTML
+    g.setAttribute('disabled','true')
+    h = b.createElement('div')
+    i = b.createElement('label')
+    i.innerHTML = 'Variabel ' + a.attributes['data-type'].value + ' Baru'
+    j = b.createElement('input')
+    j.setAttribute('name','a')
+    k = b.createElement('div')
+    k.id = 'button'
+    l = b.createElement('button')
+    l.style.backgroundColor = '#f66'
+    l.innerHTML = 'Kembali'
+    l.setAttribute('type','Button')
+    l.setAttribute('onclick','kembaliForm()')
+    m = b.createElement('div')
+    m.id = 'button'
+    n = b.createElement('button')
+    n.style.backgroundColor = '#66f'
+    n.setAttribute('type','submit')
+    n.innerHTML = 'Simpan'
+    b.body.appendChild(c)
+    c.appendChild(d)
+    d.appendChild(e)
+    e.appendChild(f)
+    e.appendChild(g)
+    d.appendChild(h)
+    h.appendChild(i)
+    h.appendChild(j)
+    d.appendChild(m)
+    m.appendChild(n)
+    d.appendChild(k)
+    k.appendChild(l)
+    d.onsubmit = function(o){
+        o.preventDefault()
+        data('edit.php',p => {
+            if(p.edit){
+                a.innerHTML = o.target.a.value
+                kembaliForm()
+            }
+        },{
+            a:document.body.attributes['data-menu'].value.toLowerCase() === 'user'? 'akun' : document.body.attributes['data-menu'].value.toLowerCase(),
+            b:a.attributes['data-type'].value === 'nowa'? 'wa' : a.attributes['data-type'].value,
+            c:o.target.a.value,
+            d:a.parentElement.attributes['data-id'].value
+        },error)
+    }
+}
 listKolom = me =>{
     console.log(me)
     a = document
@@ -120,6 +187,7 @@ listSales = a =>{
     b.querySelector('#kolom').appendChild(g)
     for(h of a){
         const {id,nama,nowa} = h
+        console.log(nowa)
         i = b.createElement('div')
         i.id = 'lists'
         i.setAttribute('data-id',id)
@@ -130,17 +198,21 @@ listSales = a =>{
         j.innerHTML = id
         k = b.createElement('div')
         k.setAttribute('data-type','nama')
+        k.setAttribute('onclick','editForm(this)')
         k.style.width = 'calc(100% - 310px)'
         k.innerHTML = nama
         l = b.createElement('div')
         l.setAttribute('data-type','nowa')
+        l.setAttribute('onclick','editForm(this)')
         l.style.width = '150px'
         l.innerHTML = nowa
         m = b.createElement('button')
+        m.setAttribute('onclick',`deleteRow(this)`)
         n = b.createElement('span')
         n.style.backgroundColor = 'red'
         n.innerHTML = 'close'
         o = b.createElement('button')
+        o.setAttribute('onclick',`waChat(this)`)
         p = b.createElement('span')
         p.style.backgroundColor = 'green'
         p.innerHTML = 'chat_bubble'
@@ -200,6 +272,7 @@ listUser = a =>{
         j.innerHTML = id
         k = b.createElement('div')
         k.setAttribute('data-type','nama')
+        k.setAttribute('onclick','editForm(this)')
         k.style.width = 'calc(100% - 460px)'
         k.innerHTML = nama
         l = b.createElement('div')
@@ -208,13 +281,16 @@ listUser = a =>{
         l.innerHTML = !parseInt(status)? 'Admin' : 'Karyawan'
         l1 = b.createElement('div')
         l1.setAttribute('data-type','nowa')
+        l1.setAttribute('onclick','editForm(this)')
         l1.style.width = '150px'
         l1.innerHTML = nowa
         m = b.createElement('button')
+        m.setAttribute('onclick',`deleteRow(this)`)
         n = b.createElement('span')
         n.style.backgroundColor = 'red'
         n.innerHTML = 'close'
         o = b.createElement('button')
+        o.setAttribute('onclick',`waChat(this)`)
         p = b.createElement('span')
         p.style.backgroundColor = 'green'
         p.innerHTML = 'chat_bubble'
@@ -284,18 +360,22 @@ listItem = a =>{
         j.innerHTML = id
         k = b.createElement('div')
         k.setAttribute('data-type','nama')
+        k.setAttribute('onclick','editForm(this)')
         k.style.width = 'calc(100% - 730px)'
         k.innerHTML = nama
         l = b.createElement('div')
         l.setAttribute('data-type','harga1')
+        l.setAttribute('onclick','editForm(this)')
         l.style.width = '150px'
         l.innerHTML = harga1
         l1 = b.createElement('div')
         l1.setAttribute('data-type','harga2')
+        l1.setAttribute('onclick','editForm(this)')
         l1.style.width = '150px'
         l1.innerHTML = harga2
         l2 = b.createElement('div')
         l2.setAttribute('data-type','harga3')
+        l2.setAttribute('onclick','editForm(this)')
         l2.style.width = '150px'
         l2.innerHTML = harga3
         l3 = b.createElement('div')
@@ -303,6 +383,7 @@ listItem = a =>{
         l3.style.width = '100px'
         l3.innerHTML = jumlah
         m = b.createElement('button')
+        m.setAttribute('onclick',`deleteRow(this)`)
         n = b.createElement('span')
         n.style.backgroundColor = 'red'
         n.innerHTML = 'close'
@@ -367,6 +448,7 @@ listTransaksi = a =>{
         l.style.width = '150px'
         l.innerHTML = !parseInt(status)? 'Masuk' : 'Keluar'
         m = b.createElement('button')
+        m.setAttribute('onclick',`deleteRow(this)`)
         n = b.createElement('span')
         n.style.backgroundColor = 'red'
         n.innerHTML = 'close'
@@ -599,6 +681,8 @@ index = () =>{
                 b : this.b.value,
             },error)
         })
+    }else{
+        listMenu(indexKolom)
     }
 }
 tambah = () =>{
@@ -858,6 +942,8 @@ setTransaksi = async () =>{
     c = []
     for(d of document.querySelectorAll('#itemList')){
         e = {
+            id:d.childNodes[0].value,
+            nama:d.childNodes[1].value,
             harga : d.childNodes[2].value,
             jumlah : d.childNodes[3].value
         }
@@ -876,6 +962,6 @@ setTransaksi = async () =>{
     }
     b['b'] = c
     b['c'] = 0
-    data('transaksi.php','',b,error)
+    data('transaksi.php',kembaliForm,b,error)
 }
 index()
