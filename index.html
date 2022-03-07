@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta name='format-detection' content='telephone=no'>
+    <meta name='msapplication-tap-highlight' content='no'>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <nav class="indexNav" data-before="Naraya">
+        <button onclick="keluar()" id='nama' style="background-color: #f666">
+            <span>
+                logout
+            </span>
+        </button>
+        <button onclick="listMenu(this)" data-before="Sales" style="background-color: #f9f6">
+            <span>
+                manage_accounts
+            </span>
+        </button>
+        <button onclick="listMenu(this)" data-before="User" style="background-color: #9f96">
+            <span>
+                person
+            </span>
+        </button>
+        <button onclick="listMenu(this)" data-before="Transaksi" style="background-color: #ff86">
+            <span>
+                receipt_long
+            </span>
+        </button>
+        <button onclick="listMenu(this)" data-before="Item" style="background-color: #88f6">
+            <span>
+                inventory
+            </span>
+        </button>
+    </nav>
+    <section id="header">
+    </section>
+    <section id="kolom">
+    </section>
+    <footer class="indexFooter">
+        <button onclick="menu(this)">
+            <span>
+                expand_less
+            </span>
+        </button>
+        <button onclick="kolom(this)" id="menu" data-after="Item" style="background-color: #88f6 ;display:none;">
+            <span>
+                add
+            </span>
+        </button>
+        <button onclick="kolom(this)" id="menu" data-after="Sales" style="background-color: #f9f6 ;display:none;">
+            <span>
+                add
+            </span>
+        </button>
+        <button onclick="kolom(this)" id="menu" data-after="User" style="background-color: #9f96 ;display:none;">
+            <span>
+                add
+            </span>
+        </button>
+        <button onclick="transaksi()" id="menu" data-after="Transaksi" style="background-color: #ff86 ;display:none;">
+            <span>
+                add
+            </span>
+        </button>
+    </footer>
+    <script type='text/javascript' src='index.js'></script>
+</body>
+
+</html>

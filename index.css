@@ -1,0 +1,637 @@
+body,
+html,
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+* {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+html {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    color: #333;
+    font-weight: 400;
+    font-size: 14px;
+}
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(font.woff2) format('woff2');
+}
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -moz-font-feature-settings: 'liga';
+    -moz-osx-font-smoothing: grayscale;
+}
+/* index */
+    .indexNav {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        z-index: 10
+    }
+    .indexNav button {
+        width: auto;
+        height: 50px;
+        position: relative;
+        float: right;
+        padding: 10px;
+        background-color: transparent;
+        border: none;
+        color: #404040
+    }
+    .indexNav button:before {
+        height: 100%;
+        line-height: 30px;
+        content: attr(data-before);
+        font-size: medium;
+        font-weight:normal;
+        text-transform: capitalize;
+        position: relative;
+        float: right;
+    }
+    .indexNav button span {
+        width: 30px;
+        height: 30px;
+        position: relative;
+        float: right;
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 30px;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -moz-font-feature-settings: 'liga';
+        -moz-osx-font-smoothing: grayscale;
+    }
+    .indexFooter {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        display: grid;
+    }
+    .indexFooter button {
+        float: right;
+        margin:10px;
+        width: auto;
+        height: 50px;
+        padding: 10px;
+        background-color: transparent;
+        border: none;
+        color: #404040;
+        border-radius: 25px
+    }
+    .indexFooter button:after {
+        height: 100%;
+        line-height: 30px;
+        content: attr(data-after);
+        font-size: medium;
+        font-weight:normal;
+        text-transform: capitalize;
+        position: relative;
+        float: right;
+        margin-right: 10px;
+        margin-left: 10px
+    }
+    .indexFooter button span {
+        background-color: rgba(0,0,0,0.3);
+        color: #fff;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        position: relative;
+        float: right;
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 30px;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -moz-font-feature-settings: 'liga';
+        -moz-osx-font-smoothing: grayscale;
+    }
+    #form{
+        position: absolute;
+        width: 100%;
+        padding: 10%;
+        display:flex;
+        justify-content: center;
+        background-color: #0005;
+        height: 100%;
+        z-index: 10
+    }
+    #form form{
+        position: relative;
+        float: left;
+        width: 50%;
+        height: auto;
+        background-color: #fff
+    }
+    #form form div{
+        position: relative;
+        float: left;
+        width: 100%;
+        padding: 10px;
+    }
+    #form form div label,#sectionLogin form div input,#sectionLogin form div button{
+        position: relative;
+        float: left;
+        width: 100%;
+        padding: 5px
+    }
+    #form form div input{
+        border-radius: 0;
+        width: 100%;
+        padding:10px;
+        border:none;
+        border-bottom: 1px solid #f66
+    }
+    #form form div button{
+        padding:10px;
+        border:none;
+        color: #fff
+    }
+    #form form #button{
+        position: relative;
+        float: right;
+        width: auto;
+    }
+/* login */
+    #sectionLogin{
+        color: #404040;
+        position: relative;
+        float: left;
+        width: 100%;
+        height: 100%;
+        display:flex;
+        justify-content: center;
+        padding:10%;
+        background-color: #404040;
+    }
+    #sectionLogin form{
+        position: relative;
+        float: left;
+        width: 50%;
+        height: 100%;
+        background-color: #fff
+    }
+    #sectionLogin form div{
+        position: relative;
+        float: left;
+        width: 100%;
+        padding: 10px;
+    }
+    #sectionLogin form div label,#sectionLogin form div input,#sectionLogin form div button{
+        position: relative;
+        float: left;
+        width: 100%;
+        padding: 5px
+    }
+    #sectionLogin form div input{
+        border-radius: 0;
+        padding:10px;
+        border:none;
+        border-bottom: 1px solid #f66
+    }
+    #sectionLogin form div button{
+        padding:10px;
+        border:none;
+        background-color: #f66
+    }
+    #loginTitle{
+        border-bottom: 1px solid #f66
+    }
+    #loginTitle:after{
+        content: attr(data-after);
+        position: relative;
+        float: left;
+        width: 100%;
+    }
+    #loginTitle:before{
+        content: attr(data-before);
+        position: relative;
+        float: left;
+        width: 100%;
+        font-weight:bold;
+        font-size:xx-large;
+        text-transform: uppercase;
+    }
+/* kolom */
+    #header{
+        position: relative;
+        float: left;
+        width: 100%;
+    }
+    #kolomInput{
+        margin-top: 60px;
+        position: relative;
+        float: left;
+        width: 100%;
+        padding: 10px
+    }
+    #kolomInput button{
+        position: relative;
+        float: left;
+        width: 50px;
+        height: 50px;
+        background-color: #fff
+    }
+    #kolomInput button span{
+        background-color: #0005;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        position: relative;
+        float: right;
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 30px;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -moz-font-feature-settings: 'liga';
+        -moz-osx-font-smoothing: grayscale;
+    }
+    #kolomInput input{
+        position: relative;
+        float: left;
+        width: calc(100% - 250px);
+        border:1px solid;
+        border-right: none;
+        border-left: none;
+        background-color: #fff;
+        height: 50px
+    }
+    #kolomInput select{
+        position: relative;
+        float: left;
+        border:1px solid;
+        background-color: #fff;
+        text-align: right;
+        height: 50px
+    }
+    #kolomInput #search{
+        border:1px solid;
+        border-right: none;
+        border-top-left-radius: 25px;
+        border-bottom-left-radius: 25px;
+    }
+    #kolomInput #sort{
+        border:1px solid;
+        border-right: none;
+        border-left: none;
+    }
+    #kolomInput #sort{
+        border:1px solid;
+        border-right: none;
+        border-left: none;
+    }
+    #kolomInput #totalList{
+        width: 50px;
+        border-right: none;
+        border-left: none;
+    }
+    #kolomInput #kolomList{
+        width: 100px;
+        border-left: none;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+    }
+    #headerTable{
+        position: relative;
+        float: left;
+        width: 100%;
+        padding: 10px
+    }
+    #headerTable button{
+        position: relative;
+        float: left;
+        padding: 10px;
+        border-radius: 0;
+        border:none;
+    }
+    #kolomTable{
+        position: relative;
+        float: left;
+        width: 100%;
+        padding: 10px
+    }
+    #kolomTable #lists{
+        position: relative;
+        float: left;
+        width: 100%;
+    }
+    #kolomTable #lists div{
+        position: relative;
+        float: left;
+        height: 40px;
+        border: 1px solid;
+        padding: 10px
+    }
+    #kolomTable #lists button{
+        position: relative;
+        float: left;
+        height: 40px;
+        width:40px;
+        border: 1px solid;
+        padding: 10px;
+        background-color: transparent;
+    }
+    #kolomTable #lists button{
+        position: relative;
+        float: left;
+        height: 40px;
+        width:40px;
+        border: none;
+        background-color: transparent;
+        padding: 5px;
+        display:flex;
+        justify-content: center;
+    }
+    #kolomTable #lists button span{
+        border-radius: 50%;
+        position: relative;
+        float: right;
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 18px;
+        line-height: 30px;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -moz-font-feature-settings: 'liga';
+        -moz-osx-font-smoothing: grayscale;
+        height: 30px;
+        width:30px;
+        background-color: red;
+        color: #fff;
+        text-align: center
+    }
+    #formTransaksi{
+        position: absolute;
+        width:100%;
+        height: 100%;
+        background-color: #ccc;
+        z-index: 20
+    }
+    #formTransaksi section{
+        position: relative;
+        float: left;
+        height: 100%;
+        overflow-y: scroll;
+    }
+    #formTransaksi #menuformTransaksi{
+        width: 30%
+    }
+    #formTransaksi #secformTransaksi{
+        width:70%;
+    }
+    #formTransaksi #menuformTransaksi nav,#formTransaksi #menuformTransaksi form,#formTransaksi #menuformTransaksi #kolomNav,#formTransaksi #secformTransaksi form,#formTransaksi #secformTransaksi form #kolomSales,#formTransaksi #secformTransaksi form #kolomBarang{
+        position: relative;
+        float: left;
+        width: 100%;
+        padding: 10px
+    }
+    #formTransaksi #menuformTransaksi nav #buttonNav{
+        width: auto;
+        height: 50px;
+        position: relative;
+        float: left;
+        padding: 10px;
+        border: none;
+        margin: 5px;
+        color: #404040
+    }
+    #formTransaksi #menuformTransaksi nav #buttonNav:before {
+        height: 100%;
+        line-height: 30px;
+        content: attr(data-before);
+        font-size: medium;
+        font-weight:normal;
+        text-transform: capitalize;
+        position: relative;
+        float: right;
+    }
+    #formTransaksi #menuformTransaksi nav #buttonNav span {
+        width: 30px;
+        height: 30px;
+        position: relative;
+        float: right;
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 30px;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -moz-font-feature-settings: 'liga';
+        -moz-osx-font-smoothing: grayscale;
+    }
+    #formTransaksi #menuformTransaksi form #buttonInputR,#formTransaksi #menuformTransaksi form #buttonInputL{
+        position: relative;
+        float: left;
+        width: 50px;
+        height: 50px;
+        background-color: #fff
+    }
+    #formTransaksi #menuformTransaksi form input{
+        position: relative;
+        float: left;
+        width: calc(100% - 100px);
+        border:1px solid;
+        border-right: none;
+        border-left: none;
+        background-color: #fff;
+        height: 50px
+    }
+    #formTransaksi #menuformTransaksi form #buttonInputR span,#formTransaksi #menuformTransaksi form #buttonInputL span {
+        background-color: #0005;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 30px;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -moz-font-feature-settings: 'liga';
+        -moz-osx-font-smoothing: grayscale;
+    }
+    #buttonInputR{
+        border:1px solid;
+        border-right: none;
+        border-top-left-radius: 25px;
+        border-bottom-left-radius: 25px;
+    }
+    #buttonInputL{
+        border:1px solid;
+        border-left: none;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+    }
+    #formTransaksi #secformTransaksi form #kolomSales label{
+        position: relative;
+        float: left;
+        width: 100%;
+        font-weight:bold;
+    }
+    #formTransaksi #secformTransaksi form #kolomSales input{
+        position: relative;
+        float: left;
+        font-weight:normal;
+        width: 50%;
+        height: 40px;
+        padding:5px;
+    }
+    #formTransaksi #menuformTransaksi nav #buttonNav.active{
+        color: red;
+        border-bottom: 1px solid red
+    }
+    #kolomNav #kolomNavList,#kolomNav #kolomNavNext{
+        position: relative;
+        float: left;
+        width: 100%;
+        padding: 10px;
+        background-color: #fff;
+        margin-bottom: 5px;
+    }
+    #kolomNav #kolomNavNext{
+        border:none;
+        background-color: #c3ffd8
+    }
+    #kolomBarang:before,#kolomSales:before{
+        font-weight:bold;
+        content: attr(data-before);
+        position: relative;
+        float: left;
+        width: 100%;
+    }
+    #kolomBarang #itemList{
+        position: relative;
+        float: left;
+        width: 100%;
+        height: 40px
+    }
+    #kolomBarang #itemList input,#kolomBarang #itemList button{
+        position: relative;
+        float: left;
+        height: 100%
+    }
+    #kolomBarang #itemList .id{
+        width:75px;
+        text-align:center;
+    }
+    #kolomBarang #itemList .nama{
+        width:calc(100% - 290px )
+    }
+    #kolomBarang #itemList .harga{
+        text-align:center;
+        width:100px
+    }
+    #kolomBarang #itemList .angka{
+        text-align:center;
+        width:75px
+    }
+    #kolomBarang #itemList button{
+        position: relative;
+        float: left;
+        height: 40px;
+        width:40px;
+        border: none;
+        background-color: transparent;
+        padding: 5px;
+        display:flex;
+        justify-content: center;
+    }
+    #kolomBarang #itemList button span{
+        border-radius: 50%;
+        position: relative;
+        float: right;
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 18px;
+        line-height: 30px;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -moz-font-feature-settings: 'liga';
+        -moz-osx-font-smoothing: grayscale;
+        height: 30px;
+        width:30px;
+        background-color: red;
+        color: #fff;
+        text-align: center
+    }
+    #kolomButton{
+        position: relative;
+        float: left;
+        width:100%;
+        padding: 10px;
+        text-align:left;
+        border:none;
+        background-color: transparent;
+        color: blue;
+    }
