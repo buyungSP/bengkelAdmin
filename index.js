@@ -417,7 +417,7 @@ listTransaksi = a =>{
     e = b.createElement('button')
     e.style.width = '350px'
     e.style.textAlign = 'left'
-    e.innerHTML = 'Sales'
+    e.innerHTML = 'Nama'
     f = b.createElement('button')
     f.innerHTML = 'Status'
     f.style.width = '150px'
@@ -442,7 +442,7 @@ listTransaksi = a =>{
         k = b.createElement('div')
         k.setAttribute('data-type','sales')
         k.style.width = '350px'
-        k.innerHTML = sales
+        k.innerHTML = `${sales} (${status === '0'? 'Sales' : 'Karyawan'})`
         l = b.createElement('div')
         l.setAttribute('data-type','status')
         l.style.width = '150px'
