@@ -22,9 +22,161 @@ waChat = a =>{
     window.location.href = 'https://wa.me/' + b
 }
 deleteRow = a =>{
+    console.log(a.parentElement.attributes['data-id'].value)
     data(`delete${document.body.attributes['data-menu'].value}.php`,b =>{
         a.parentElement.remove()
     },{a:a.parentElement.attributes['data-id'].value},error)
+}
+detailRow = a =>{
+    b = document
+    c = b.createElement('div')
+    c.id = 'form'
+    d = b.createElement('div')
+    d.id = 'listInfo'
+    e = b.createElement('button')
+    e.id = 'backInfo'
+    f = b.createElement('span')
+    f.innerHTML = 'arrow_back'
+    f.setAttribute('onclick','kembaliForm()')
+    h = b.createElement('div')
+    h.id = 'judulInfo'
+    b.body.appendChild(c)
+    c.appendChild(d)
+    c.appendChild(e)
+    c.appendChild(h)
+    e.appendChild(f)
+    a1 = a.parentElement.attributes['data-id'].value
+    a2 = b.body.attributes['data-menu'].value
+    a3 = a.parentElement
+    switch(a2) {
+        case 'Item':
+            h.innerHTML = `${a3.children[1].innerHTML} ~ ${a3.children[2].innerHTML}`
+            break;
+        case 'User':
+            h.innerHTML = `${a3.children[3].innerHTML} ~ ${a3.children[2].innerHTML}`
+            break;
+        case 'Sales':
+            h.innerHTML = `Sales ~ ${a3.children[2].innerHTML}`
+            break;
+        case 'Transaksi':
+            h.innerHTML = `${a3.children[1].innerHTML} ~ ${a3.children[2].innerHTML}`
+            h.setAttribute('data-after',0)
+            break;
+    }
+    data(`info${a2}.php`,eval(`detail${a2}`),{a:a1},error)
+}
+detailTransaksi = a =>{
+    if(typeof a === 'string'){
+        return false
+    }
+    listDetailTransaksi({})
+    number = 1
+    for(x of a){
+        x.nomor = number++
+        listDetailTransaksi(x)
+    }
+}
+listDetailTransaksi = ({nomor = 'no',no = 0,id = 'id',nama = 'nama',jumlah = 'jumlah',harga = 'harga',total = 'total'}) =>{
+    b = document
+    c = b.createElement('div')
+    c.setAttribute('data-id',no)
+    c.id = !no? 'headerTable' : 'list'
+    d = b.createElement('button')
+    d.style.width = '40px'
+    d.innerHTML = nomor
+    e = b.createElement('button')
+    e.style.width = 'calc(100% - 340px)'
+    e.style.textAlign = 'left'
+    e.innerHTML = nama
+    f = b.createElement('button')
+    f.innerHTML = !parseInt(harga)? harga : new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', }).format(harga)
+    f.style.width = '100px'
+    f.style.textAlign = 'left'
+    g = b.createElement('button')
+    g.innerHTML = jumlah
+    g.style.width = '100px'
+    g.style.textAlign = 'left'
+    h = b.createElement('button')
+    h.innerHTML = !no? total : new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', }).format(harga * jumlah)
+    h.style.width = '100px'
+    h.style.textAlign = 'left'
+    b.querySelector('#listInfo').appendChild(c)
+    c.appendChild(d)
+    c.appendChild(e)
+    c.appendChild(f)
+    c.appendChild(g)
+    c.appendChild(h)
+    b.querySelector('#judulInfo').setAttribute('data-after',!no? 0 : new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', }).format(parseInt(b.querySelector('#judulInfo').attributes['data-after'].value) + (harga * jumlah)))
+}
+detailSales = a =>{
+    detailUser(a)
+}
+detailUser = a =>{
+    if(typeof a === 'string'){
+        return false
+    }
+    listDetailUser({})
+    number = 1
+    for(x of a){
+        x.no = number++
+        listDetailUser(x)
+    }
+}
+listDetailUser = ({no = 'no',id = 0,waktu = 'tanggal',status = 'status'}) =>{
+    b = document
+    c = b.createElement('div')
+    c.setAttribute('data-id',id)
+    c.id = !id? 'headerTable' : 'list'
+    d = b.createElement('button')
+    d.style.width = '40px'
+    d.innerHTML = no
+    e = b.createElement('button')
+    e.style.width = 'calc(100% - 140px)'
+    e.style.textAlign = 'left'
+    e.innerHTML = !parseInt(waktu)? waktu : new Intl.DateTimeFormat('id-ID', { dateStyle: 'full', timeStyle: 'medium' }).format(new Date(parseInt(waktu) * 1000))
+    f = b.createElement('button')
+    f.innerHTML = !parseInt(status)? 'Masuk' : 'Keluar'
+    f.style.width = '100px'
+    f.style.textAlign = 'left'
+    b.querySelector('#listInfo').appendChild(c)
+    c.appendChild(d)
+    c.appendChild(e)
+    c.appendChild(f)
+}
+detailItem = a =>{
+    listDetailItem({})
+    number = 1
+    for(x of a){
+        x.no = number++
+        listDetailItem(x)
+    }
+}
+listDetailItem = ({no = 'no',salesId = 0,salesNama = 'nama',tanggal = 'tanggal',total = 'total'}) =>{
+    console.log(!parseInt(tanggal))
+    b = document
+    c = b.createElement('div')
+    c.setAttribute('data-id',salesId)
+    c.id = !salesId? 'headerTable' : 'list'
+    d = b.createElement('button')
+    d.style.width = '40px'
+    d.innerHTML = no
+    e = b.createElement('button')
+    e.style.width = '200px'
+    e.style.textAlign = 'left'
+    e.innerHTML = !parseInt(tanggal)? tanggal : new Intl.DateTimeFormat('id-ID', { dateStyle: 'full', timeStyle: 'medium' }).format(new Date(parseInt(tanggal) * 1000))
+    f = b.createElement('button')
+    f.innerHTML = salesNama
+    f.style.width = 'calc(100% - 340px)'
+    f.style.textAlign = 'left'
+    g = b.createElement('button')
+    g.innerHTML = total
+    g.style.width = '100px'
+    g.style.textAlign = 'left'
+    b.querySelector('#listInfo').appendChild(c)
+    c.appendChild(d)
+    c.appendChild(e)
+    c.appendChild(f)
+    c.appendChild(g)
 }
 editForm = a =>{
     kembaliForm()
@@ -163,153 +315,139 @@ listMenu = a =>{
     formCari()
 }
 listSales = a =>{
-    b = document
-    b.querySelector('#kolom').innerHTML = ''
-    c = b.createElement('div')
-    c.id = 'headerTable'
-    d = b.createElement('button')
-    d.style.width = '40px'
-    d.innerHTML = 'Id'
-    e = b.createElement('button')
-    e.style.width = 'calc(100% - 310px)'
-    e.style.textAlign = 'left'
-    e.innerHTML = 'Nama'
-    f = b.createElement('button')
-    f.innerHTML = 'No Telp'
-    f.style.width = '150px'
-    f.style.textAlign = 'left'
-    g = b.createElement('div')
-    g.id = 'kolomTable'
-    b.querySelector('#kolom').appendChild(c)
-    c.appendChild(d)
-    c.appendChild(e)
-    c.appendChild(f)
-    b.querySelector('#kolom').appendChild(g)
-    for(h of a){
-        const {id,nama,nowa} = h
-        console.log(nowa)
-        i = b.createElement('div')
-        i.id = 'lists'
-        i.setAttribute('data-id',id)
-        j = b.createElement('div')
-        j.setAttribute('data-type','id')
-        j.style.width = '40px'
-        j.style.textAlign = 'center'
-        j.innerHTML = id
-        k = b.createElement('div')
-        k.setAttribute('data-type','nama')
-        k.setAttribute('onclick','editForm(this)')
-        k.style.width = 'calc(100% - 310px)'
-        k.innerHTML = nama
-        l = b.createElement('div')
-        l.setAttribute('data-type','nowa')
-        l.setAttribute('onclick','editForm(this)')
-        l.style.width = '150px'
-        l.innerHTML = nowa
-        m = b.createElement('button')
-        m.setAttribute('onclick',`deleteRow(this)`)
-        n = b.createElement('span')
-        n.style.backgroundColor = 'red'
-        n.innerHTML = 'close'
-        o = b.createElement('button')
-        o.setAttribute('onclick',`waChat(this)`)
-        p = b.createElement('span')
-        p.style.backgroundColor = 'green'
-        p.innerHTML = 'chat_bubble'
-        q = b.createElement('button')
-        r = b.createElement('span')
-        r.style.backgroundColor = 'blue'
-        r.innerHTML = 'info'
-        g.appendChild(i)
-        i.appendChild(j)
-        i.appendChild(k)
-        i.appendChild(l)
-        i.appendChild(q)
-        q.appendChild(r)
-        i.appendChild(o)
-        o.appendChild(p)
-        i.appendChild(m)
-        m.appendChild(n)
+    document.querySelector('#kolom').innerHTML = ''
+    viewListSales({})
+    b = document.createElement('div')
+    b.id = 'kolomTable'
+    document.querySelector('#kolom').appendChild(b)
+    number = 1
+    for(c of a){
+        c.no = number++
+        viewListSales(c)
     }
 }
-listUser = a =>{
-    b = document
-    b.querySelector('#kolom').innerHTML = ''
-    c = b.createElement('div')
-    c.id = 'headerTable'
-    d = b.createElement('button')
-    d.style.width = '40px'
-    d.innerHTML = 'Id'
-    e = b.createElement('button')
-    e.style.width = 'calc(100% - 460px)'
-    e.style.textAlign = 'left'
-    e.innerHTML = 'Nama'
-    f = b.createElement('button')
-    f.innerHTML = 'NO telp'
+viewListSales = ({no = 0 ,id = 0 , nama = 'Nama', nowa = 'No.Telp'}) =>{
+    a = document
+    b = a.createElement('div')
+    b.id = !id? 'headerTable' : 'lists'
+    c = a.createElement(!id? 'button' : 'div')
+    c.style.width = '40px'
+    c.innerHTML = !id? 'Id' : id
+    d = a.createElement(!id? 'button' : 'div')
+    d.style.width = 'calc(100% - 350px)'
+    d.style.textAlign = 'left'
+    d.innerHTML = nama
+    f = a.createElement(!id? 'button' : 'div')
+    f.innerHTML = nowa
     f.style.width = '150px'
     f.style.textAlign = 'left'
-    f1 = b.createElement('button')
-    f1.innerHTML = 'Status'
-    f1.style.width = '150px'
-    f1.style.textAlign = 'left'
-    g = b.createElement('div')
-    g.id = 'kolomTable'
-    b.querySelector('#kolom').appendChild(c)
-    c.appendChild(d)
-    c.appendChild(e)
-    c.appendChild(f1)
-    c.appendChild(f)
-    b.querySelector('#kolom').appendChild(g)
-    for(h of a){
-        const {id,nama,status,nowa} = h
-        i = b.createElement('div')
-        i.id = 'lists'
-        i.setAttribute('data-id',id)
-        j = b.createElement('div')
-        j.setAttribute('data-type','id')
-        j.style.width = '40px'
-        j.style.textAlign = 'center'
-        j.innerHTML = id
-        k = b.createElement('div')
-        k.setAttribute('data-type','nama')
-        k.setAttribute('onclick','editForm(this)')
-        k.style.width = 'calc(100% - 460px)'
-        k.innerHTML = nama
-        l = b.createElement('div')
-        l.setAttribute('data-type','status')
-        l.style.width = '150px'
-        l.innerHTML = !parseInt(status)? 'Admin' : 'Karyawan'
-        l1 = b.createElement('div')
-        l1.setAttribute('data-type','nowa')
-        l1.setAttribute('onclick','editForm(this)')
-        l1.style.width = '150px'
-        l1.innerHTML = nowa
-        m = b.createElement('button')
-        m.setAttribute('onclick',`deleteRow(this)`)
-        n = b.createElement('span')
-        n.style.backgroundColor = 'red'
-        n.innerHTML = 'close'
-        o = b.createElement('button')
-        o.setAttribute('onclick',`waChat(this)`)
-        p = b.createElement('span')
-        p.style.backgroundColor = 'green'
-        p.innerHTML = 'chat_bubble'
-        q = b.createElement('button')
-        r = b.createElement('span')
-        r.style.backgroundColor = 'blue'
-        r.innerHTML = 'info'
-        g.appendChild(i)
-        i.appendChild(j)
-        i.appendChild(k)
-        i.appendChild(l)
-        i.appendChild(l1)
-        i.appendChild(q)
-        q.appendChild(r)
-        i.appendChild(o)
-        o.appendChild(p)
-        i.appendChild(m)
-        m.appendChild(n)
+    g = a.createElement(!id? 'button' : 'div')
+    g.id = 'no'
+    g.innerHTML = !no? 'No' : no
+    g.style.width = '40px'
+    b.appendChild(g)
+    b.appendChild(c)
+    b.appendChild(d)
+    b.appendChild(f)
+    if(!id){
+    }else{
+        b.setAttribute('data-id',id)
+        f.setAttribute('data-type','nowa')
+        f.setAttribute('onclick','editForm(this)')
+        h = a.createElement('button')
+        h.setAttribute('onclick',`deleteRow(this)`)
+        i = a.createElement('span')
+        i.style.backgroundColor = 'red'
+        i.innerHTML = 'close'
+        j = a.createElement('button')
+        j.setAttribute('onclick',`waChat(this)`)
+        k = a.createElement('span')
+        k.style.backgroundColor = 'green'
+        k.innerHTML = 'chat_bubble'
+        l = a.createElement('button')
+        l.setAttribute('onclick',`detailRow(this)`)
+        m = a.createElement('span')
+        m.style.backgroundColor = 'blue'
+        m.innerHTML = 'info'
+        b.appendChild(l)
+        l.appendChild(m)
+        b.appendChild(j)
+        j.appendChild(k)
+        b.appendChild(h)
+        h.appendChild(i)
     }
+    a.querySelector(!id? '#kolom' : '#kolomTable').appendChild(b)
+}
+listUser = a =>{
+    document.querySelector('#kolom').innerHTML = ''
+    viewListUser({})
+    b = document.createElement('div')
+    b.id = 'kolomTable'
+    document.querySelector('#kolom').appendChild(b)
+    number = 1
+    for(c of a){
+        c.no = number++
+        viewListUser(c)
+    }
+}
+viewListUser = ({no = 0 ,id = 0 , nama = 'Nama', status = 'Status', nowa = 'No.Telp'}) =>{
+    a = document
+    b = a.createElement('div')
+    b.id = !id? 'headerTable' : 'lists'
+    c = a.createElement(!id? 'button' : 'div')
+    c.style.width = '40px'
+    c.innerHTML = !id? 'Id' : id
+    d = a.createElement(!id? 'button' : 'div')
+    d.style.width = 'calc(100% - 500px)'
+    d.style.textAlign = 'left'
+    d.innerHTML = nama
+    e = a.createElement(!id? 'button' : 'div')
+    e.innerHTML = !id? status : !parseInt(status)? 'Admin' : 'Karyawan'
+    e.style.width = '150px'
+    e.style.textAlign = 'left'
+    f = a.createElement(!id? 'button' : 'div')
+    f.innerHTML = nowa
+    f.style.width = '150px'
+    f.style.textAlign = 'left'
+    g = a.createElement(!id? 'button' : 'div')
+    g.id = 'no'
+    g.innerHTML = !no? 'No' : no
+    g.style.width = '40px'
+    b.appendChild(g)
+    b.appendChild(c)
+    b.appendChild(d)
+    b.appendChild(e)
+    b.appendChild(f)
+    if(!id){
+    }else{
+        b.setAttribute('data-id',id)
+        d.setAttribute('data-type','nama')
+        d.setAttribute('onclick','editForm(this)')
+        f.setAttribute('data-type','nowa')
+        f.setAttribute('onclick','editForm(this)')
+        h = a.createElement('button')
+        h.setAttribute('onclick',`deleteRow(this)`)
+        i = a.createElement('span')
+        i.style.backgroundColor = 'red'
+        i.innerHTML = 'close'
+        j = a.createElement('button')
+        j.setAttribute('onclick',`waChat(this)`)
+        k = a.createElement('span')
+        k.style.backgroundColor = 'green'
+        k.innerHTML = 'chat_bubble'
+        l = a.createElement('button')
+        l.setAttribute('onclick',`detailRow(this)`)
+        m = a.createElement('span')
+        m.style.backgroundColor = 'blue'
+        m.innerHTML = 'info'
+        b.appendChild(l)
+        l.appendChild(m)
+        b.appendChild(j)
+        j.appendChild(k)
+        b.appendChild(h)
+        h.appendChild(i)
+    }
+    a.querySelector(!id? '#kolom' : '#kolomTable').appendChild(b)
 }
 listItem = a =>{
     b = document
@@ -317,10 +455,10 @@ listItem = a =>{
     c = b.createElement('div')
     c.id = 'headerTable'
     d = b.createElement('button')
-    d.style.width = '100px'
+    d.style.width = '120px'
     d.innerHTML = 'Id'
     e = b.createElement('button')
-    e.style.width = 'calc(100% - 730px)'
+    e.style.width = 'calc(100% - 770px)'
     e.style.textAlign = 'left'
     e.innerHTML = 'Nama'
     f = b.createElement('button')
@@ -337,10 +475,14 @@ listItem = a =>{
     f2.style.textAlign = 'left'
     f3 = b.createElement('button')
     f3.innerHTML = 'Pcs/Box'
-    f3.style.width = '100px'
+    f3.style.width = '80px'
+    s = b.createElement('button')
+    s.innerHTML = 'no'
+    s.style.width = '40px'
     g = b.createElement('div')
     g.id = 'kolomTable'
     b.querySelector('#kolom').appendChild(c)
+    c.appendChild(s)
     c.appendChild(d)
     c.appendChild(e)
     c.appendChild(f)
@@ -348,39 +490,47 @@ listItem = a =>{
     c.appendChild(f2)
     c.appendChild(f3)
     b.querySelector('#kolom').appendChild(g)
+    number = 1
     for(h of a){
         const {no,id,nama,harga1,harga2,harga3,jumlah} = h
         i = b.createElement('div')
         i.id = 'lists'
         i.setAttribute('data-id',no)
+        t = b.createElement('div')
+        t.id = 'no'
+        t.innerHTML = number++
         j = b.createElement('div')
         j.setAttribute('data-type','id')
-        j.style.width = '100px'
+        j.style.width = '120px'
         j.style.textAlign = 'center'
         j.innerHTML = id
         k = b.createElement('div')
         k.setAttribute('data-type','nama')
         k.setAttribute('onclick','editForm(this)')
-        k.style.width = 'calc(100% - 730px)'
+        k.style.width = 'calc(100% - 770px)'
         k.innerHTML = nama
         l = b.createElement('div')
         l.setAttribute('data-type','harga1')
         l.setAttribute('onclick','editForm(this)')
+        l.style.textAlign = 'right'
         l.style.width = '150px'
         l.innerHTML = harga1
         l1 = b.createElement('div')
         l1.setAttribute('data-type','harga2')
         l1.setAttribute('onclick','editForm(this)')
         l1.style.width = '150px'
+        l1.style.textAlign = 'right'
         l1.innerHTML = harga2
         l2 = b.createElement('div')
         l2.setAttribute('data-type','harga3')
         l2.setAttribute('onclick','editForm(this)')
+        l2.style.textAlign = 'right'
         l2.style.width = '150px'
         l2.innerHTML = harga3
         l3 = b.createElement('div')
         l3.setAttribute('data-type','total')
-        l3.style.width = '100px'
+        l3.style.textAlign = 'right'
+        l3.style.width = '80px'
         l3.innerHTML = jumlah
         m = b.createElement('button')
         m.setAttribute('onclick',`deleteRow(this)`)
@@ -388,10 +538,12 @@ listItem = a =>{
         n.style.backgroundColor = 'red'
         n.innerHTML = 'close'
         q = b.createElement('button')
+        q.setAttribute('onclick',`detailRow(this)`)
         r = b.createElement('span')
         r.style.backgroundColor = 'blue'
         r.innerHTML = 'info'
         g.appendChild(i)
+        i.appendChild(t)
         i.appendChild(j)
         i.appendChild(k)
         i.appendChild(l)
@@ -411,7 +563,7 @@ listTransaksi = a =>{
     c = b.createElement('div')
     c.id = 'headerTable'
     d = b.createElement('button')
-    d.style.width = 'calc(100% - 580px)'
+    d.style.width = 'calc(100% - 620px)'
     d.innerHTML = 'Tanggal'
     d.style.textAlign = 'left'
     e = b.createElement('button')
@@ -422,21 +574,29 @@ listTransaksi = a =>{
     f.innerHTML = 'Status'
     f.style.width = '150px'
     f.style.textAlign = 'left'
+    s = b.createElement('button')
+    s.innerHTML = 'no'
+    s.style.width = '40px'
     g = b.createElement('div')
     g.id = 'kolomTable'
     b.querySelector('#kolom').appendChild(c)
+    c.appendChild(s)
     c.appendChild(d)
     c.appendChild(e)
     c.appendChild(f)
     b.querySelector('#kolom').appendChild(g)
+    number = 1
     for(h of a){
         const {id,waktu,sales,status} = h
         i = b.createElement('div')
         i.id = 'lists'
         i.setAttribute('data-id',id)
+        t = b.createElement('div')
+        t.id = 'no'
+        t.innerHTML = number++
         j = b.createElement('div')
         j.setAttribute('data-type','waktu')
-        j.style.width = 'calc(100% - 580px)'
+        j.style.width = 'calc(100% - 620px)'
         j.style.textAlign = 'center'
         j.innerHTML = new Intl.DateTimeFormat('id-ID', { dateStyle: 'full', timeStyle: 'medium' }).format(new Date(parseInt(waktu) * 1000))
         k = b.createElement('div')
@@ -453,10 +613,12 @@ listTransaksi = a =>{
         n.style.backgroundColor = 'red'
         n.innerHTML = 'close'
         q = b.createElement('button')
+        q.setAttribute('onclick',`detailRow(this)`)
         r = b.createElement('span')
         r.style.backgroundColor = 'blue'
         r.innerHTML = 'info'
         g.appendChild(i)
+        i.appendChild(t)
         i.appendChild(j)
         i.appendChild(k)
         i.appendChild(l)
@@ -883,7 +1045,7 @@ transaksi = () =>{
     u.setAttribute('type','button')
     u.setAttribute('onclick','setItem(true)')
     u.id = 'kolomButton'
-    u.innerHTML = 'Tambah item'
+    u.innerHTML = 'Tambah item Baru'
     v = a.createElement('div')
     v.id = 'kolomSubmit'
     w = a.createElement('button')
