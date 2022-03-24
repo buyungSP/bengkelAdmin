@@ -145,7 +145,7 @@ listDetailUser = ({no = 'no',id = 0,waktu = 'tanggal',status = 'status'}) =>{
 }
 detailItem = a =>{
     listDetailItem({})
-    number = 1
+    number = 1 
     for(x of a){
         x.no = number++
         listDetailItem(x)
@@ -314,16 +314,30 @@ listMenu = a =>{
     }
     formCari()
 }
+nulls = () =>{
+    a = document
+    b = a.createElement('div')
+    b.setAttribute('data-after','Data Kosong')
+    b.id = 'nulls'
+    c = a.createElement('span')
+    c.innerHTML = 'warning'
+    b.appendChild(c)
+    a.querySelector('#kolom').appendChild(b)
+}
 listSales = a =>{
     document.querySelector('#kolom').innerHTML = ''
     viewListSales({})
-    b = document.createElement('div')
-    b.id = 'kolomTable'
-    document.querySelector('#kolom').appendChild(b)
-    number = 1
-    for(c of a){
-        c.no = number++
-        viewListSales(c)
+    if(typeof a === 'object'){
+        b = document.createElement('div')
+        b.id = 'kolomTable'
+        document.querySelector('#kolom').appendChild(b)
+        number = 1
+        for(c of a){
+            c.no = number++
+            viewListSales(c)
+        }
+    }else{
+        nulls()
     }
 }
 viewListSales = ({no = 0 ,id = 0 , nama = 'Nama', nowa = 'No.Telp'}) =>{
@@ -343,7 +357,7 @@ viewListSales = ({no = 0 ,id = 0 , nama = 'Nama', nowa = 'No.Telp'}) =>{
     f.style.textAlign = 'left'
     g = a.createElement(!id? 'button' : 'div')
     g.id = 'no'
-    g.innerHTML = !no? 'No' : no
+    g.innerHTML = !no? 'No' : no + (parseInt(document.body.attributes['data-list'].value)*parseInt(document.querySelector('#totalList').value))
     g.style.width = '40px'
     b.appendChild(g)
     b.appendChild(c)
@@ -381,13 +395,17 @@ viewListSales = ({no = 0 ,id = 0 , nama = 'Nama', nowa = 'No.Telp'}) =>{
 listUser = a =>{
     document.querySelector('#kolom').innerHTML = ''
     viewListUser({})
-    b = document.createElement('div')
-    b.id = 'kolomTable'
-    document.querySelector('#kolom').appendChild(b)
-    number = 1
-    for(c of a){
-        c.no = number++
-        viewListUser(c)
+    if(typeof a === 'object'){
+        b = document.createElement('div')
+        b.id = 'kolomTable'
+        document.querySelector('#kolom').appendChild(b)
+        number = 1
+        for(c of a){
+            c.no = number++
+            viewListUser(c)
+        }
+    }else{
+        nulls()
     }
 }
 viewListUser = ({no = 0 ,id = 0 , nama = 'Nama', status = 'Status', nowa = 'No.Telp'}) =>{
@@ -411,7 +429,7 @@ viewListUser = ({no = 0 ,id = 0 , nama = 'Nama', status = 'Status', nowa = 'No.T
     f.style.textAlign = 'left'
     g = a.createElement(!id? 'button' : 'div')
     g.id = 'no'
-    g.innerHTML = !no? 'No' : no
+    g.innerHTML = !no? 'No' : no + (parseInt(document.body.attributes['data-list'].value)*parseInt(document.querySelector('#totalList').value))
     g.style.width = '40px'
     b.appendChild(g)
     b.appendChild(c)
@@ -450,185 +468,167 @@ viewListUser = ({no = 0 ,id = 0 , nama = 'Nama', status = 'Status', nowa = 'No.T
     a.querySelector(!id? '#kolom' : '#kolomTable').appendChild(b)
 }
 listItem = a =>{
-    b = document
-    b.querySelector('#kolom').innerHTML = ''
-    c = b.createElement('div')
-    c.id = 'headerTable'
-    d = b.createElement('button')
-    d.style.width = '120px'
-    d.innerHTML = 'Id'
-    e = b.createElement('button')
-    e.style.width = 'calc(100% - 770px)'
+    document.querySelector('#kolom').innerHTML = ''
+    viewListItem({})
+    if(typeof a === 'object'){
+        b = document.createElement('div')
+        b.id = 'kolomTable'
+        document.querySelector('#kolom').appendChild(b)
+        number = 1
+        for(c of a){
+            c.nom = number++
+            viewListItem(c)
+        }
+    }else{
+        nulls()
+    }
+}
+viewListItem = ({nom = 0 ,no = 0 , id = 0 , nama = 'Nama' , harga1 = 'Harga 1' , harga2 = 'Harga 2' , harga3 = 'Harga 3' , jumlah = 'Pcs/Box' }) =>{
+    a = document
+    b = a.createElement('div')
+    b.id = !id? 'headerTable' : 'lists'
+    c = a.createElement(!id? 'button' : 'div')
+    c.style.width = '120px'
+    c.innerHTML = !id? 'Id' : id
+    d = a.createElement(!id? 'button' : 'div')
+    d.style.width = 'calc(100% - 770px)'
+    d.style.textAlign = 'left'
+    d.innerHTML = nama
+    e = a.createElement(!id? 'button' : 'div')
+    e.innerHTML = harga1
+    e.style.width = '150px'
     e.style.textAlign = 'left'
-    e.innerHTML = 'Nama'
-    f = b.createElement('button')
-    f.innerHTML = 'Harga 1'
+    f = a.createElement(!id? 'button' : 'div')
+    f.innerHTML = harga2
     f.style.width = '150px'
     f.style.textAlign = 'left'
-    f1 = b.createElement('button')
-    f1.innerHTML = 'Harga 2'
+    f1 = a.createElement(!id? 'button' : 'div')
+    f1.innerHTML = harga3
     f1.style.width = '150px'
     f1.style.textAlign = 'left'
-    f2 = b.createElement('button')
-    f2.innerHTML = 'Harga 3'
-    f2.style.width = '150px'
+    f2 = a.createElement(!id? 'button' : 'div')
+    f2.innerHTML = jumlah
+    f2.style.width = '80px'
     f2.style.textAlign = 'left'
-    f3 = b.createElement('button')
-    f3.innerHTML = 'Pcs/Box'
-    f3.style.width = '80px'
-    s = b.createElement('button')
-    s.innerHTML = 'no'
-    s.style.width = '40px'
-    g = b.createElement('div')
-    g.id = 'kolomTable'
-    b.querySelector('#kolom').appendChild(c)
-    c.appendChild(s)
-    c.appendChild(d)
-    c.appendChild(e)
-    c.appendChild(f)
-    c.appendChild(f1)
-    c.appendChild(f2)
-    c.appendChild(f3)
-    b.querySelector('#kolom').appendChild(g)
-    number = 1
-    for(h of a){
-        const {no,id,nama,harga1,harga2,harga3,jumlah} = h
-        i = b.createElement('div')
-        i.id = 'lists'
-        i.setAttribute('data-id',no)
-        t = b.createElement('div')
-        t.id = 'no'
-        t.innerHTML = number++
-        j = b.createElement('div')
-        j.setAttribute('data-type','id')
-        j.style.width = '120px'
-        j.style.textAlign = 'center'
-        j.innerHTML = id
-        k = b.createElement('div')
-        k.setAttribute('data-type','nama')
-        k.setAttribute('onclick','editForm(this)')
-        k.style.width = 'calc(100% - 770px)'
-        k.innerHTML = nama
-        l = b.createElement('div')
-        l.setAttribute('data-type','harga1')
-        l.setAttribute('onclick','editForm(this)')
-        l.style.textAlign = 'right'
-        l.style.width = '150px'
-        l.innerHTML = harga1
-        l1 = b.createElement('div')
-        l1.setAttribute('data-type','harga2')
-        l1.setAttribute('onclick','editForm(this)')
-        l1.style.width = '150px'
-        l1.style.textAlign = 'right'
-        l1.innerHTML = harga2
-        l2 = b.createElement('div')
-        l2.setAttribute('data-type','harga3')
-        l2.setAttribute('onclick','editForm(this)')
-        l2.style.textAlign = 'right'
-        l2.style.width = '150px'
-        l2.innerHTML = harga3
-        l3 = b.createElement('div')
-        l3.setAttribute('data-type','total')
-        l3.style.textAlign = 'right'
-        l3.style.width = '80px'
-        l3.innerHTML = jumlah
-        m = b.createElement('button')
-        m.setAttribute('onclick',`deleteRow(this)`)
-        n = b.createElement('span')
-        n.style.backgroundColor = 'red'
-        n.innerHTML = 'close'
-        q = b.createElement('button')
-        q.setAttribute('onclick',`detailRow(this)`)
-        r = b.createElement('span')
-        r.style.backgroundColor = 'blue'
-        r.innerHTML = 'info'
-        g.appendChild(i)
-        i.appendChild(t)
-        i.appendChild(j)
-        i.appendChild(k)
-        i.appendChild(l)
-        i.appendChild(l1)
-        i.appendChild(l2)
-        i.appendChild(l3)
-        i.appendChild(q)
-        q.appendChild(r)
-        i.appendChild(m)
-        m.appendChild(n)
+    g = a.createElement(!id? 'button' : 'div')
+    g.id = 'no'
+    g.innerHTML = !nom? 'No' : nom + (parseInt(document.body.attributes['data-list'].value)*parseInt(document.querySelector('#totalList').value))
+    g.style.width = '40px'
+    b.appendChild(g)
+    b.appendChild(c)
+    b.appendChild(d)
+    b.appendChild(e)
+    b.appendChild(f)
+    b.appendChild(f1)
+    b.appendChild(f2)
+    if(!id){
+    }else{
+        b.setAttribute('data-id',no)
+        d.setAttribute('data-type','nama')
+        d.setAttribute('onclick','editForm(this)')
+        e.setAttribute('data-type','harga1')
+        e.setAttribute('onclick','editForm(this)')
+        e.style.textAlign = 'right'
+        f.setAttribute('data-type','harga2')
+        f.setAttribute('onclick','editForm(this)')
+        f.style.textAlign = 'right'
+        f1.setAttribute('data-type','harga3')
+        f1.setAttribute('onclick','editForm(this)')
+        f1.style.textAlign = 'right'
+        h = a.createElement('button')
+        h.setAttribute('onclick',`deleteRow(this)`)
+        i = a.createElement('span')
+        i.style.backgroundColor = 'red'
+        i.innerHTML = 'close'
+        l = a.createElement('button')
+        l.setAttribute('onclick',`detailRow(this)`)
+        m = a.createElement('span')
+        m.style.backgroundColor = 'blue'
+        m.innerHTML = 'info'
+        b.appendChild(l)
+        l.appendChild(m)
+        b.appendChild(h)
+        h.appendChild(i)
     }
+    a.querySelector(!id? '#kolom' : '#kolomTable').appendChild(b)
 }
 listTransaksi = a =>{
-    b = document
-    b.querySelector('#caris').setAttribute('disabled',true)
-    b.querySelector('#kolom').innerHTML = ''
-    c = b.createElement('div')
-    c.id = 'headerTable'
-    d = b.createElement('button')
-    d.style.width = 'calc(100% - 620px)'
-    d.innerHTML = 'Tanggal'
-    d.style.textAlign = 'left'
-    e = b.createElement('button')
-    e.style.width = '350px'
-    e.style.textAlign = 'left'
-    e.innerHTML = 'Nama'
-    f = b.createElement('button')
-    f.innerHTML = 'Status'
-    f.style.width = '150px'
-    f.style.textAlign = 'left'
-    s = b.createElement('button')
-    s.innerHTML = 'no'
-    s.style.width = '40px'
-    g = b.createElement('div')
-    g.id = 'kolomTable'
-    b.querySelector('#kolom').appendChild(c)
-    c.appendChild(s)
-    c.appendChild(d)
-    c.appendChild(e)
-    c.appendChild(f)
-    b.querySelector('#kolom').appendChild(g)
-    number = 1
-    for(h of a){
-        const {id,waktu,sales,status} = h
-        i = b.createElement('div')
-        i.id = 'lists'
-        i.setAttribute('data-id',id)
-        t = b.createElement('div')
-        t.id = 'no'
-        t.innerHTML = number++
-        j = b.createElement('div')
-        j.setAttribute('data-type','waktu')
-        j.style.width = 'calc(100% - 620px)'
-        j.style.textAlign = 'center'
-        j.innerHTML = new Intl.DateTimeFormat('id-ID', { dateStyle: 'full', timeStyle: 'medium' }).format(new Date(parseInt(waktu) * 1000))
-        k = b.createElement('div')
-        k.setAttribute('data-type','sales')
-        k.style.width = '350px'
-        k.innerHTML = `${sales} (${status === '0'? 'Sales' : 'Karyawan'})`
-        l = b.createElement('div')
-        l.setAttribute('data-type','status')
-        l.style.width = '150px'
-        l.innerHTML = !parseInt(status)? 'Masuk' : 'Keluar'
-        m = b.createElement('button')
-        m.setAttribute('onclick',`deleteRow(this)`)
-        n = b.createElement('span')
-        n.style.backgroundColor = 'red'
-        n.innerHTML = 'close'
-        q = b.createElement('button')
-        q.setAttribute('onclick',`detailRow(this)`)
-        r = b.createElement('span')
-        r.style.backgroundColor = 'blue'
-        r.innerHTML = 'info'
-        g.appendChild(i)
-        i.appendChild(t)
-        i.appendChild(j)
-        i.appendChild(k)
-        i.appendChild(l)
-        i.appendChild(q)
-        q.appendChild(r)
-        i.appendChild(m)
-        m.appendChild(n)
+    document.querySelector('#caris').setAttribute('disabled',true)
+    document.querySelector('#kolom').innerHTML = ''
+    viewListTransaksi({})
+    if(typeof a === 'object'){
+        b = document.createElement('div')
+        b.id = 'kolomTable'
+        document.querySelector('#kolom').appendChild(b)
+        number = 1
+        for(c of a){
+            c.no = number++
+            viewListTransaksi(c)
+        }
+    }else{
+        nulls()
     }
 }
+viewListTransaksi = ({no = 0 , id = 0 , waktu = 'Tanggal' , sales = 'Nama' , status = 'Status'}) =>{
+    a = document
+    b = a.createElement('div')
+    b.id = !id? 'headerTable' : 'lists'
+    c = a.createElement(!id? 'button' : 'div')
+    c.style.width = 'calc(100% - 620px)'
+    c.innerHTML = !id? 'Tanggal' :  new Intl.DateTimeFormat('id-ID', { dateStyle: 'full', timeStyle: 'medium' }).format(new Date(parseInt(waktu) * 1000))
+    d = a.createElement(!id? 'button' : 'div')
+    d.style.width = '350px'
+    d.style.textAlign = 'left'
+    d.innerHTML = sales
+    e = a.createElement(!id? 'button' : 'div')
+    e.innerHTML = !id? status : !parseInt(status)? 'Sales' : 'Karyawan'
+    e.style.width = '150px'
+    e.style.textAlign = 'left'
+    g = a.createElement(!id? 'button' : 'div')
+    g.id = 'no'
+    g.innerHTML = !no? 'No' : no + (parseInt(document.body.attributes['data-list'].value)*parseInt(document.querySelector('#totalList').value))
+    g.style.width = '40px'
+    b.appendChild(g)
+    b.appendChild(c)
+    b.appendChild(d)
+    b.appendChild(e)
+    if(!id){
+    }else{
+        b.setAttribute('data-id',id)
+        h = a.createElement('button')
+        h.setAttribute('onclick',`deleteRow(this)`)
+        i = a.createElement('span')
+        i.style.backgroundColor = 'red'
+        i.innerHTML = 'close'
+        l = a.createElement('button')
+        l.setAttribute('onclick',`detailRow(this)`)
+        m = a.createElement('span')
+        m.style.backgroundColor = 'blue'
+        m.innerHTML = 'info'
+        b.appendChild(l)
+        l.appendChild(m)
+        b.appendChild(h)
+        h.appendChild(i)
+    }
+    a.querySelector(!id? '#kolom' : '#kolomTable').appendChild(b)
+}
 formCari = () =>{
+    data(`total${document.body.attributes['data-menu'].value}.php`,({total = 0, pencarian = 0}) => {
+        document.querySelector('#count').innerHTML = total
+        document.querySelector('#pencarian').innerHTML = pencarian
+        if(!parseInt(document.body.attributes['data-list'].value)){
+            document.querySelector('#prev').setAttribute('disabled',true)
+        }else{
+            document.querySelector('#prev').removeAttribute('disabled')
+        }
+        if(parseInt(document.body.attributes['data-list'].value) === parseInt(pencarian/document.querySelector('#totalList').value)){
+            document.querySelector('#next').setAttribute('disabled',true)
+        }else{
+            document.querySelector('#next').removeAttribute('disabled')
+        }
+    },{
+        a:document.querySelector('#caris').value,
+    },error)
     data(`list${document.body.attributes['data-menu'].value}.php`,eval(`list${document.body.attributes['data-menu'].value}`),{
         a:parseInt(document.body.attributes['data-list'].value),
         b:document.querySelector('#caris').value,
@@ -1125,5 +1125,17 @@ setTransaksi = async () =>{
     b['b'] = c
     b['c'] = 0
     data('transaksi.php',kembaliForm,b,error)
+}
+next = () =>{
+    a = parseInt(document.body.attributes['data-list'].value)
+    document.body.setAttribute('data-list',a + 1)
+    formCari()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+prev = () =>{
+    a = parseInt(document.body.attributes['data-list'].value)
+    document.body.setAttribute('data-list',a - 1)
+    formCari()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 index()
