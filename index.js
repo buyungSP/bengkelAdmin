@@ -22,6 +22,10 @@ waChat = a =>{
     window.location.href = 'https://wa.me/' + b
 }
 deleteRow = a =>{
+    if(parseInt(localStorage.getItem('status'))){
+        alert('Hanya admin yang mempunyai akses ini')
+        return false
+    }
     console.log(a.parentElement.attributes['data-id'].value)
     data(`delete${document.body.attributes['data-menu'].value}.php`,b =>{
         a.parentElement.remove()
@@ -179,6 +183,10 @@ listDetailItem = ({no = 'no',salesId = 0,salesNama = 'nama',tanggal = 'tanggal',
     c.appendChild(g)
 }
 editForm = a =>{
+    if(parseInt(localStorage.getItem('status'))){
+        alert('Hanya admin yang mempunyai akses ini')
+        return false
+    }
     kembaliForm()
     b = document
     c = b.createElement('section')
@@ -638,6 +646,10 @@ formCari = () =>{
     },error)
 }
 menu = a =>{
+    if(parseInt(localStorage.getItem('status'))){
+        alert('Hanya admin yang mempunyai akses ini')
+        return false
+    }
     b = a.firstElementChild.innerText
     if(b === 'expand_less'){
         for(c of document.querySelectorAll('#menu')){
